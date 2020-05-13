@@ -2,4 +2,4 @@ const Sequelize = require('sequelize')
 
 const db = new Sequelize(process.env.DATABASE_URL)
 
-global.DATABASE = db
+module.exports = db

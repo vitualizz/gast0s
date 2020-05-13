@@ -4,13 +4,20 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 
-// Database & Models & Api
-require('./config/database')
+// Database & Models & Api & Auth
+const db = require('./config/database')
 require('./models')
+const passport = require('passport');
 const api = require("./api")
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+require('./config/auth')(passport)
+
 app.use("/api", api)
 
 // Import and Set Nuxt.js options
@@ -36,7 +43,7 @@ async function start () {
   // Listen the server
   app.listen(port, host)
 
-  DATABASE
+  db
     .sync()
     .then( () => {
       consola.ready({

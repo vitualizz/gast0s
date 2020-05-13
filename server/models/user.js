@@ -1,7 +1,7 @@
 const Bcrypt = require("bcrypt")
 
-module.exports = (DataTypes) => {
-  let User = DATABASE.define("user",
+module.exports = (db, DataTypes) => {
+  let User = db.define("user",
     {
       id: {
         type: DataTypes.INTEGER,
