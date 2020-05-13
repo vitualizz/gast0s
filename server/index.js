@@ -3,6 +3,10 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 
+// Database & Models & Api
+require('./config/database')
+require('./models')
+
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
@@ -25,9 +29,17 @@ async function start () {
 
   // Listen the server
   app.listen(port, host)
-  consola.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
-  })
+
+  DATABASE
+    .sync()
+    .then( () => {
+      consola.ready({
+        message: `Server listening on http://${host}:${port}`,
+        badge: true
+      })
+    })
+    .catch(err => {
+      throw new Error(err);
+    });
 }
 start()
