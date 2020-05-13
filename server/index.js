@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
@@ -6,6 +7,11 @@ const app = express()
 // Database & Models & Api
 require('./config/database')
 require('./models')
+const api = require("./api")
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use("/api", api)
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')

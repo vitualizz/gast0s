@@ -1,4 +1,5 @@
-var Bcrypt = require("bcrypt");
+const Bcrypt = require("bcrypt")
+
 module.exports = (DataTypes) => {
   let User = DATABASE.define("user",
     {
@@ -23,24 +24,14 @@ module.exports = (DataTypes) => {
         }
       },
       password: {
-        type: DataTypes.STRING,
-        set(val) {
-          let hashedPassword = Bcrypt.hashSync(val, 10);
-          return this.setDataValue("password", hashedPassword);
-        }
+        type: DataTypes.STRING
       }
-    });
-
-  User.prototype.isValidPassword = async (password) => {
-    return await Promise((resolve, reject) => {
-      Bcrypt.compare(password, this.password, function (error, isMatch) {
-        if (error) {
-          reject(error)
-        }
-        resolve(isMatch)
-      });
     })
-  }
+
+  User.beforeCreate(async (user, options) => {
+    const hashedPassword = await Bcrypt.hashSync(user.password, 10)
+    user.password = hashedPassword;
+  })
 
   return { name: 'User', schema: User };
 };
