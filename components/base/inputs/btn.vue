@@ -28,6 +28,7 @@ $btnColors: "green" $btnGreenColor $btnGreenColorHover, "yellow" $btnYellowColor
 
 .btn
   color: $textGrayDark
+  padding: 20px
 
 @each $name, $color, $hover in $btnColors
   .btn-#{$name}

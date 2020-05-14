@@ -2,8 +2,8 @@
   .login-main.has-text-centered
     p.title GAST0S
     el-row
-      btn(color='green') Login
-      btn(color='yellow') Register
+      btn(color='green').btn Login
+      btn(color='yellow').btn Register
 </template>
 
 <script>
@@ -24,4 +24,7 @@ export default {
 
 .title
   font-size: 15vw
+
+.btn
+  @extend .f-size-5
 </style>
