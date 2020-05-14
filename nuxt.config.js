@@ -40,8 +40,18 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+    // Styles
+    '@nuxtjs/style-resources'
   ],
+  /*
+  ** Styles
+  */
+  styleResources: {
+    sass: [
+      '@/assets/styles/variables/*.sass'
+    ]
+  },
   /*
   ** Nuxt.js modules
   */
