@@ -16,6 +16,16 @@ router.post('/login', passport.authenticate('login', {session: false}), async (r
     res.status(200).send({payload, data: { token: token }})
 })
 
+
+// === Register
+router.post("/register", async (req, res) => {
+  const { fname, lname, email, password } = req.body
+  await
+    User.create({ fname, lname, email, password })
+      .then( user => res.json({ user, msg: 'Cuenta creada satisfactoriamente.'}))
+      .catch( err => res.json({ err, msg: 'Error al crear cuenta.'}))
+})
+
 // ====== Routes ======
 
 // === Info User (Token)
@@ -24,13 +34,5 @@ router.get('/me', passport.authenticate('jwt', {session: false }), async (req, r
     res.status(200).send({user: req.user})
 })
 
-// === Create User
-router.post("/users", async (req, res) => {
-  const { fname, lname, email, password } = req.body
-  await
-    User.create({ fname, lname, email, password })
-      .then( user => res.json({ user, msg: 'Cuenta creada satisfactoriamente.'}))
-      .catch( err => res.json({ err, msg: 'Error al crear cuenta.'}))
-})
 
 module.exports = router

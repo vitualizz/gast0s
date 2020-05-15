@@ -31,7 +31,10 @@
         v-model='register.password_confirmation'
       )
     el-form-item
-      btn.submit(color='green') Crear
+      btn.submit(
+        color='green'
+        @click.native='signUp'
+      ) Crear
 </template>
 
 <script>
@@ -39,9 +42,25 @@ export default {
   data () {
     return {
       register: {
+        fname: '',
+        lname: '',
         email: '',
         password: ''
       }
+    }
+  },
+  methods: {
+    async signUp () {
+      const self = this
+      await this.$axios.post('/register', this.register)
+        .then(() => {
+          this.$auth.loginWith('local', {
+            data: {
+              email: self.register.email,
+              password: self.register.password
+            }
+          })
+        })
     }
   }
 }

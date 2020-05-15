@@ -1,4 +1,16 @@
 <template lang='pug'>
-  .container
-    nuxt
+  div
+    Menu(v-if='$auth.loggedIn')
+    .container
+      nuxt
 </template>
+
+<script>
+import Menu from '~/components/shared/menu'
+
+export default {
+  components: {
+    Menu
+  }
+}
+</script>
