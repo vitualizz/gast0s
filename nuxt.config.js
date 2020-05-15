@@ -40,7 +40,9 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     // Styles
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    // Global Components
+    '@nuxtjs/global-components'
   ],
   /*
   ** Styles

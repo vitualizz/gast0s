@@ -1,20 +1,24 @@
 <template lang='pug'>
   el-form(:model="login")
     el-form-item
-      el-input(type='email')
+      el-input(
+        type='email'
+        placeholder='Email'
+        v-model='login.email'
+      )
     el-form-item
-      el-input(type='password')
+      el-input(
+        type='password'
+        placeholder='Contraseña'
+        v-model='login.password'
+      )
     el-form-item
       btn.submit(color='green') Login
 </template>
 
 <script>
-import btn from '~/components/base/inputs/btn'
 
 export default {
-  components: {
-    btn
-  },
   data () {
     return {
       login: {

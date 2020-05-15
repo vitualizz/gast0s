@@ -6,23 +6,32 @@
         @click.native="loginVisible = true"
         color='green'
       ) Login
-      btn(color='yellow') Register
+      btn(
+        @click.native="registerVisible = true"
+        color='yellow'
+      ) Register
     el-dialog(
       title='Login'
       :visible.sync='loginVisible'
       width='20%'
     )
       Login
+    el-dialog(
+      title='Register'
+      :visible.sync='registerVisible'
+      width='20%'
+    )
+      Register
 </template>
 
 <script>
 import Login from '~/components/views/login/login'
-import btn from '~/components/base/inputs/btn'
+import Register from '~/components/views/login/register'
 
 export default {
   components: {
     Login,
-    btn
+    Register
   },
   data () {
     return {
