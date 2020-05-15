@@ -11,7 +11,13 @@ const flash = require('connect-flash');
 const passport = require('passport')
 const api = require("./api")
 const expressSession = require('express-session')
-app.use(expressSession({secret: 'mySecretKey'}))
+
+app.use(expressSession({
+  secret: 'mySecretKey',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
