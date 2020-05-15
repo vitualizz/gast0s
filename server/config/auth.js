@@ -16,8 +16,8 @@ module.exports = passport => {
       })
   })
   passport.use(
-    'local-users',
-    new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    'login',
+    new LocalStrategy({ usernameField: 'email'}, (email, password, done) => {
       User.findOne({
         where: {
           email: email

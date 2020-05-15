@@ -33,5 +33,12 @@ module.exports = (db, DataTypes) => {
     user.password = hashedPassword;
   })
 
+  User.prototype.comparePassword = function (candidatePassword, cb) {
+    Bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+      if (err) { return cb(err); }
+      cb(null, isMatch);
+    });
+  };
+
   return { name: 'User', schema: User };
 };

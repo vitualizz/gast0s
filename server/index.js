@@ -7,12 +7,16 @@ const app = express()
 // Database & Models & Api & Auth
 const db = require('./config/database')
 require('./models')
-const passport = require('passport');
+const flash = require('connect-flash');
+const passport = require('passport')
 const api = require("./api")
+const expressSession = require('express-session')
+app.use(expressSession({secret: 'mySecretKey'}))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 
