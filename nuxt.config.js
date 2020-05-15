@@ -57,8 +57,45 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
-    '@nuxtjs/bulma'
+    '@nuxtjs/bulma',
+    // Axios
+    '@nuxtjs/axios',
+    // Auth
+    '@nuxtjs/auth'
   ],
+  /*
+  ** Axios
+  */
+	axios: {
+    baseURL: '/api'
+  },
+  /*
+  ** Auth
+  */
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/'
+    },
+    
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'login', method: 'post', propertyName: 'data.token' },
+          user: { url: 'me', method: 'get', propertyName: 'user' },
+          logout: false
+        },
+      }
+    }
+  },
+  /*
+  ** Router
+  */
+  router: {
+    middleware: ['auth']
+  },
   /*
   ** Build configuration
   */

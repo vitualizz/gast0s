@@ -13,7 +13,10 @@
         v-model='login.password'
       )
     el-form-item
-      btn.submit(color='green') Login
+      btn.submit(
+        color='green'
+        @click.native='signIn'
+      ) Login
 </template>
 
 <script>
@@ -25,6 +28,16 @@ export default {
         email: '',
         password: ''
       }
+    }
+  },
+  methods: {
+    async signIn () {
+      await this.$auth.loginWith('local', {
+        data: {
+          email: this.login.email,
+          password: this.login.password
+        }
+      })
     }
   }
 }

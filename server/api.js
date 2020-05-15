@@ -1,20 +1,30 @@
 const express = require("express")
 const router = express.Router()
 const passport = require("passport")
+const jwt = require('jsonwebtoken')
 
-router.post('/login', passport.authenticate('login', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash : true
-}))
+// ===== AUTH =====
 
-router.get("/users", async (req, res) => {
+// === Login
+router.post('/login', passport.authenticate('login', {session: false}), async (req, res) => {
+  const user_id = req.user.id
+
+  const payload = { id: user_id }
+
+  const token = jwt.sign(payload, process.env.secretJWT || 'secret')
   await
-    User.findAll()
-      .then( users => res.send(users))
-      .catch( err => res.status(400).send({ message: err.message }) )
+    res.status(200).send({payload, data: { token: token }})
 })
 
+// ====== Routes ======
+
+// === Info User (Token)
+router.get('/me', passport.authenticate('jwt', {session: false }), async (req, res) => {
+  await
+    res.status(200).send({user: req.user})
+})
+
+// === Create User
 router.post("/users", async (req, res) => {
   const { fname, lname, email, password } = req.body
   await

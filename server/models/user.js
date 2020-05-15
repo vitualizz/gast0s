@@ -38,8 +38,8 @@ module.exports = (db, DataTypes) => {
     Bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
       if (err) { return cb(err); }
       cb(null, isMatch);
-    });
-  };
+    })
+  }
 
   return { name: 'User', schema: User };
 };

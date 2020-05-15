@@ -27,6 +27,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 require('./config/auth')(passport)
+require('./config/passportJWT')(passport)
 
 app.use("/api", api)
 
