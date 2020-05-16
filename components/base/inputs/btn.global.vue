@@ -20,18 +20,18 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-$btnColors: "green" $btnGreenColor $btnGreenColorHover, "yellow" $btnYellowColor $btnYellowColorHover
+$btnColors: "green" $btnGreenColor $btnGreenColorHover $textGrayDark, "yellow" $btnYellowColor $btnYellowColorHover $textGrayDark, "red" $btnRedColor $btnRedColorHover $textBlank
 
 .el-button
   border: none
   border-radius: 100px
 
 .btn
-  color: $textGrayDark
   padding: 20px
 
-@each $name, $color, $hover in $btnColors
+@each $name, $color, $hover, $colorText in $btnColors
   .btn-#{$name}
+    color: $colorText
     background-color: $color
     &:hover
       background-color: $hover

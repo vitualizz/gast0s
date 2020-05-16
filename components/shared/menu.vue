@@ -5,9 +5,9 @@
         p {{ this.$auth.user.fname }} {{ this.$auth.user.lname }}
       .navbar-item
         btn(
-          color='yellow'
+          color='red'
           @click.native='logOut'
-        ) LogOut
+        ).logout LogOut
 </template>
 
 <script>
@@ -19,3 +19,8 @@ export default {
   }
 }
 </script>
+
+<style scoped lang='sass'>
+.logout
+  color: $textBlank
+</style>
