@@ -38,6 +38,12 @@ export default {
           password: this.login.password
         }
       })
+        .then(() => {
+          this.$message({
+            message: `Bienvenido ${this.$auth.user.fname}.`,
+            type: 'success'
+          })
+        })
     }
   }
 }

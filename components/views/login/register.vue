@@ -60,6 +60,12 @@ export default {
               password: self.register.password
             }
           })
+            .then(() => {
+              this.$message({
+                message: 'Cuenta creada correctamente.',
+                type: 'success'
+              })
+            })
         })
     }
   }

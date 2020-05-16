@@ -15,6 +15,12 @@ export default {
   methods: {
     async logOut () {
       await this.$auth.logout()
+        .then(() => {
+          this.$message({
+            message: 'Sesión cerrada correctamente.',
+            type: 'success'
+          })
+        })
     }
   }
 }
