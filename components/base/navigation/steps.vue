@@ -6,11 +6,13 @@
       'finish-status'='success'
     )
       el-step(
-        v-for="i in total"
+        v-for='(i, index) in total'
+        :key='index'
         :title="`Step ${i}`"
       )
     .content-step(
-      v-for="i in total"
+      v-for='(i, index) in total'
+      :key='index'
       v-show="stepCurrent == i - 1"
     )
       slot(
@@ -25,7 +27,10 @@ export default {
       type: Number,
       default: 0
     },
-    stepCurrent: Number
+    stepCurrent: {
+      type: Number,
+      default: 0
+    }
   }
 }
 </script>

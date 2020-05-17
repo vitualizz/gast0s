@@ -34,7 +34,8 @@
         @change="changeFormat($event, 'decimal')"
       )
         el-option(
-          v-for='separator in separators'
+          v-for='(separator, index) in separators'
+          :key='index'
           :value='separator'
           :label='separator'
         )
@@ -45,7 +46,8 @@
         @change="changeFormat($event, 'separator')"
       )
         el-option(
-          v-for='separator in getFormatDecimal'
+          v-for='(separator, index) in getFormatDecimal'
+          :key='index'
           :value='separator'
           :label='separator'
         )
@@ -73,6 +75,9 @@ export default {
       return _.filter(this.separators, s => s !== 'none')
     }
   },
+  mounted () {
+    this.currencies = dataCurrencies
+  },
   methods: {
     changeFormat (data, format) {
       const delimiter = this.form.format
@@ -80,9 +85,6 @@ export default {
         delimiter[format] = (data === ',' ? '.' : ',')
       }
     }
-  },
-  mounted () {
-    this.currencies = dataCurrencies
   }
 }
 </script>
