@@ -9,31 +9,36 @@ export default {
     color: {
       type: String,
       default: ''
-    }
+    },
+    blankToColor: Boolean
   },
   computed: {
     colorClass () {
-      return (this.color.length ? `btn-${this.color}` : '')
+      if (!this.color.length) { return '' }
+      let classes = [`btn-${this.color}`]
+      if (this.blankToColor) { classes = classes.concat('inversed') }
+      return classes
     }
   }
 }
 </script>
 
 <style scoped lang='sass'>
-$btnColors: "green" $btnGreenColor $btnGreenColorHover $textGrayDark, "yellow" $btnYellowColor $btnYellowColorHover $textGrayDark, "red" $btnRedColor $btnRedColorHover $textBlank
+$btnColors: "green" $btnGreenColor $btnGreenColorHover, "yellow" $btnYellowColor $btnYellowColorHover, "red" $btnRedColor $btnRedColorHover
 
 .el-button
   border: none
   border-radius: 100px
-
-.btn
   padding: 20px
+  color: $textGrayDark
 
-@each $name, $color, $hover, $colorText in $btnColors
+@each $name, $color, $hover in $btnColors
   .btn-#{$name}
-    color: $colorText
     background-color: $color
     &:hover
       background-color: $hover
-    @extend .btn
+    &.inversed
+      background-color: inherit
+      &:hover
+        background-color: $hover
 </style>

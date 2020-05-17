@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import Login from '~/components/views/login/login'
-import Register from '~/components/views/login/register'
+import Login from '~/components/forms/login'
+import Register from '~/components/forms/register'
 
 export default {
   components: {

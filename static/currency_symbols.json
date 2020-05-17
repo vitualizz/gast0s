@@ -1,0 +1,27 @@
+{
+	"USD": {
+		"symbol": "$",
+		"name": "US Dollar",
+		"code": "USD"
+	},
+	"EUR": {
+		"symbol": "€",
+		"name": "Euro",
+		"code": "EUR"
+	},
+	"JPY": {
+		"symbol": "¥",
+		"name": "Japanese Yen",
+		"code": "JPY"
+	},
+	"MXN": {
+		"symbol": "MX$",
+		"name": "Mexican Peso",
+		"code": "MXN"
+	},
+	"PEN": {
+		"symbol": "S/.",
+		"name": "Peruvian Nuevo Sol",
+		"code": "PEN"
+	}
+}

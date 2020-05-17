@@ -1,4 +1,4 @@
-
+const webpack = require('webpack')
 module.exports = {
   mode: 'spa',
   /*
@@ -108,6 +108,12 @@ module.exports = {
         }
       }
     },
+    plugins: [
+      new webpack.ProvidePlugin({
+        '$': 'jquery',
+        '_': 'lodash'
+      })
+    ],
     /*
     ** You can extend webpack config here
     */
