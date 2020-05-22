@@ -34,5 +34,15 @@ router.get('/me', passport.authenticate('jwt', {session: false }), async (req, r
     res.status(200).send({user: req.user})
 })
 
+// === Create Setting (Token)
+router.post('/settings', passport.authenticate('jwt', {session: false }), async (req, res) => {
+  const { currency, symbol, places, separator, decimal } = req.body
+  await
+    User.findByPk(req.user.id)
+        .then( user => {
+          user.createSetting({ currency, symbol, places, separator, decimal })
+              .then( setting => res.json({ setting, msg: 'Configuracion creada' }) )
+        })
+})
 
 module.exports = router

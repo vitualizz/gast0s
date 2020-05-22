@@ -29,7 +29,7 @@
     br
     el-form-item
       el-select(
-        v-model='form.format.separator'
+        v-model='form.separator'
         placeholder='Separator amount'
         @change="changeFormat($event, 'decimal')"
       )
@@ -41,7 +41,7 @@
         )
     el-form-item
       el-select(
-        v-model='form.format.decimal'
+        v-model='form.decimal'
         placeholder='Separator decimal'
         @change="changeFormat($event, 'separator')"
       )
@@ -63,11 +63,9 @@ export default {
       form: {
         currency: 'USD',
         symbol: '$',
-        decimals: 2,
-        format: {
-          separator: ',',
-          decimal: '.'
-        }
+        places: 2,
+        separator: ',',
+        decimal: '.'
       }
     }
   },
@@ -76,11 +74,11 @@ export default {
       return _.filter(this.separators, s => s !== 'none')
     },
     currencyTitle () {
-      const cFormat = this.form.format
+      const cFormat = this.form
       const cTitle = cFormat.decimal === ',' ? '1234,56' : '1234.56'
       return currency(cTitle,
         {
-          precision: this.form.decimals,
+          precision: this.form.places,
           symbol: this.form.symbol,
           separator: (cFormat.separator === 'none' ? ' ' : cFormat.separator),
           decimal: cFormat.decimal

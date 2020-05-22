@@ -8,3 +8,6 @@ fs.readdirSync(__dirname)
     let model = require("./" + file)(db, Sequelize);
     global[model.name] = model.schema;
   });
+
+Setting.belongsTo(User)
+User.hasOne(Setting, { foreignKey: 'userId'})

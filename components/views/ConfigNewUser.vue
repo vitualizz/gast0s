@@ -12,16 +12,21 @@
           @setData='getSettings'
         )
       template(slot='step-2')
-        Income(
+        Cash(
           ref='income'
           :setting='setting'
         )
       template(slot='step-3')
-        h5 Page
-    span(slot="footer")
+        Cash(
+          ref='expense'
+          :setting='setting'
+          expense
+        )
+    span(slot='footer')
       btn(
         color='red'
         blank-to-color
+        @click.native='skip'
       ) Skip
       btn(
         v-if='stepCurrent > 0'
@@ -31,34 +36,46 @@
       ) Back
       btn(
         color='green'
-        @click.native='stepCurrent++'
+        @click.native='stepNext'
       ) Next
 </template>
 
 <script>
 import Steps from '~/components/base/navigation/steps'
 import Settings from '~/components/forms/settings'
-import Income from '~/components/forms/income'
+import Cash from '~/components/forms/cash'
 
 export default {
   components: {
     Steps,
     Settings,
-    Income
-  },
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    }
+    Cash
   },
   data () {
     return {
-      stepCurrent: 1, // set 0
+      visible: false,
+      stepCurrent: 0,
       setting: {}
     }
   },
+  mounted () {
+    this.visible = this.$store.state.newUser
+  },
   methods: {
+    async createSetting () {
+      const self = this
+      await this.$axios.post('/settings', this.setting)
+        .then((data) => {
+          self.$store.commit('setSetting', data.setting)
+          this.visible = false
+        })
+    },
+    stepNext () {
+      this.stepCurrent++
+      if (this.stepCurrent === 2) {
+        this.createSetting()
+      }
+    },
     stepPrev () {
       this.$confirm('This data will be delete. Continue?', 'Warning', {
         confirmButtonText: 'OK',
@@ -69,6 +86,15 @@ export default {
           this.$refs[this.stepCurrent === 1 ? 'income' : 'expense'].clear()
           this.stepCurrent--
         }
+      })
+    },
+    skip () {
+      this.$confirm('Skip configuration. Continue?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        this.createSetting()
       })
     },
     getSettings (data) {

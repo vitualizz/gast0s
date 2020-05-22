@@ -85,10 +85,10 @@ export default {
       }
     },
     beforeAdd () {
-      const cFormat = this.setting.format
+      const cFormat = this.setting
       this.money.amount = currency(this.money.amount,
         {
-          precision: this.setting.decimals,
+          precision: this.setting.places,
           symbol: this.setting.symbol,
           separator: (cFormat.separator === 'none' ? ' ' : cFormat.separator),
           decimal: cFormat.decimal
