@@ -45,7 +45,9 @@ module.exports = {
     // Styles
     '@nuxtjs/style-resources',
     // Global Components
-    '@nuxtjs/global-components'
+    '@nuxtjs/global-components',
+    // Moment
+    '@nuxtjs/moment'
   ],
   /*
   ** Styles

@@ -5,7 +5,8 @@ module.exports = {
     node: true
   },
   globals: {
-    "_": true
+    "_": true,
+    "currency": true
   },
   parserOptions: {
     parser: 'babel-eslint'

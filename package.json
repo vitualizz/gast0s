@@ -16,6 +16,7 @@
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/bulma": "^1.2.1",
     "@nuxtjs/global-components": "^0.6.1",
+    "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/style-resources": "^1.0.0",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
