@@ -17,7 +17,7 @@
           span {{ currency.symbol }}
     el-form-item
       el-select(
-        v-model='form.decimals'
+        v-model='form.places'
         placeholder='Select decimal places'
       )
         el-option(
@@ -105,7 +105,7 @@ export default {
       this.$emit('setData', this.form)
     },
     changeFormat (data, format) {
-      const delimiter = this.form.format
+      const delimiter = this.form
       if (![null, 'none'].includes(data) && delimiter.separator !== 'none') {
         delimiter[format] = (data === ',' ? '.' : ',')
       }

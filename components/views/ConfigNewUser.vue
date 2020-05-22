@@ -1,6 +1,7 @@
 <template lang='pug'>
   el-dialog(
-    :visible='visible'
+    :visible.sync='visible'
+    :before-close='skip'
   )
     Steps(
       :total='3'
@@ -59,7 +60,7 @@ export default {
     }
   },
   mounted () {
-    this.visible = this.$store.state.newUser
+    this.visible = this.$store.state.firstConfiguration
   },
   methods: {
     async createSetting () {
@@ -67,6 +68,7 @@ export default {
       await this.$axios.post('/settings', this.setting)
         .then((data) => {
           self.$store.commit('setSetting', data.setting)
+          this.$store.commit('disableFirstConfiguration')
           this.visible = false
         })
     },

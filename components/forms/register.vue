@@ -65,7 +65,7 @@ export default {
                 message: 'Cuenta creada correctamente.',
                 type: 'success'
               })
-              this.$store.commit('isNewUser')
+              self.$store.commit('activeFirstConfiguration')
             })
         })
     }
