@@ -1,7 +1,7 @@
 import currencies from '~/static/currencies.json'
 
 export const state = () => ({
-  firstConfiguration: false,
+  firstConfiguration: true,
   settings: {},
   allCurrencies: currencies
 })

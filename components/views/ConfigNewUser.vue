@@ -16,11 +16,13 @@
         Cash(
           ref='income'
           :setting='setting'
+          @dataMoney='getMoney'
         )
       template(slot='step-3')
         Cash(
           ref='expense'
           :setting='setting'
+          @dataMoney='getMoney'
           expense
         )
     span(slot='footer')
@@ -56,7 +58,8 @@ export default {
     return {
       visible: false,
       stepCurrent: 0,
-      setting: {}
+      setting: {},
+      cash: []
     }
   },
   mounted () {
@@ -72,10 +75,18 @@ export default {
           this.visible = false
         })
     },
+    async createMoney () {
+      await this.$axios.post('/money', this.money)
+        .then((data) => {
+          console.log(data)
+        })
+    },
     stepNext () {
-      this.stepCurrent++
       if (this.stepCurrent === 2) {
+        this.createMoney()
         this.createSetting()
+      } else {
+        this.stepCurrent++
       }
     },
     stepPrev () {
@@ -98,6 +109,10 @@ export default {
       }).then(() => {
         this.createSetting()
       })
+    },
+    getMoney (data) {
+      this.cash = _.union(this.cash, data)
+      console.log(JSON.stringify(this.cash))
     },
     getSettings (data) {
       this.setting = data

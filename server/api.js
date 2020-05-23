@@ -34,6 +34,12 @@ router.get('/me', passport.authenticate('jwt', {session: false }), async (req, r
     res.status(200).send({user: req.user})
 })
 
+// === Info Cash (Token)
+router.get('/cash', passport.authenticate('jwt', {session: false }), async (req, res) => {
+  await
+    Money.findAll().then( cash => res.json({cash}))
+})
+
 // === Create Setting (Token)
 router.post('/settings', passport.authenticate('jwt', {session: false }), async (req, res) => {
   const { currency, symbol, places, separator, decimal } = req.body
@@ -43,6 +49,19 @@ router.post('/settings', passport.authenticate('jwt', {session: false }), async 
           user.createSetting({ currency, symbol, places, separator, decimal })
               .then( setting => res.json({ setting, msg: 'Configuracion creada' }) )
         })
+})
+
+
+// === Create  (Token)
+router.post('/cash', passport.authenticate('jwt', {session: false }), async (req, res) => {
+  await
+    User.findByPk(req.user.id)
+      .then( user => {
+        req.body.forEach( money => {
+          const { symbol, amount, expense, date } = money
+          user.createMoney({ symbol, amount, expense, date })
+        })
+      })
 })
 
 module.exports = router

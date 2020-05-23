@@ -59,6 +59,7 @@ export default {
     return {
       always: true,
       money: {
+        symbol: null,
         amount: null,
         name: null,
         expense: null,
@@ -68,7 +69,7 @@ export default {
   },
   computed: {
     incomeOrExpense () {
-      return (this.expense ? '-' : '+')
+      return ((this.expense ? '-' : '+') + ' ' + this.setting.symbol)
     }
   },
   methods: {
@@ -89,12 +90,13 @@ export default {
       this.money.amount = currency(this.money.amount,
         {
           precision: this.setting.places,
-          symbol: this.setting.symbol,
+          symbol: '',
           separator: (cFormat.separator === 'none' ? ' ' : cFormat.separator),
           decimal: cFormat.decimal
         }
       ).format(true)
       this.money.expense = this.expense
+      this.money.symbol = this.setting.symbol
     },
     clear () {
       this.money.amount = null

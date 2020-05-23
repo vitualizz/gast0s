@@ -38,6 +38,7 @@ export default {
     },
     addMoney (data) {
       this.cash.push(data)
+      this.$emit('dataMoney', this.cash)
     },
     removeMoney (index) {
       this.cash.splice(index, 1)

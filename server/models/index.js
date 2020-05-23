@@ -11,3 +11,6 @@ fs.readdirSync(__dirname)
 
 Setting.belongsTo(User)
 User.hasOne(Setting, { foreignKey: 'userId'})
+
+Money.belongsTo(User)
+User.hasMany(Money, { foreignKey: 'userId'})
