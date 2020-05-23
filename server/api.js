@@ -37,7 +37,10 @@ router.get('/me', passport.authenticate('jwt', {session: false }), async (req, r
 // === Info Cash (Token)
 router.get('/cash', passport.authenticate('jwt', {session: false }), async (req, res) => {
   await
-    Money.findAll().then( cash => res.json({cash}))
+    User.findByPk(req.user.id)
+        .then( user => {
+          user.getMoney().then( cash => res.json({cash}))
+        })
 })
 
 // === Create Setting (Token)
@@ -56,12 +59,13 @@ router.post('/settings', passport.authenticate('jwt', {session: false }), async 
 router.post('/cash', passport.authenticate('jwt', {session: false }), async (req, res) => {
   await
     User.findByPk(req.user.id)
-      .then( user => {
-        req.body.forEach( money => {
-          const { symbol, amount, expense, date } = money
-          user.createMoney({ symbol, amount, expense, date })
+        .then( user => {
+          req.body.forEach( money => {
+            const { symbol, amount, expense, date } = money
+            user.createMoney({ symbol, amount, expense, date })
+          })
         })
-      })
+  res.json({body: req.body})
 })
 
 module.exports = router

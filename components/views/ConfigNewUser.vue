@@ -76,9 +76,10 @@ export default {
         })
     },
     async createMoney () {
-      await this.$axios.post('/money', this.money)
+      await this.$axios
+        .post('/cash', this.cash)
         .then((data) => {
-          console.log(data)
+          console.log(data, this.cash)
         })
     },
     stepNext () {
@@ -112,7 +113,6 @@ export default {
     },
     getMoney (data) {
       this.cash = _.union(this.cash, data)
-      console.log(JSON.stringify(this.cash))
     },
     getSettings (data) {
       this.setting = data

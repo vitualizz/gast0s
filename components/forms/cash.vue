@@ -1,5 +1,9 @@
 <template lang='pug'>
   div
+    btn.is-block.is-pulled-right(
+      color='green'
+      @click.native='createMoney'
+    ) Save
     Money(
       ref='money'
       v-for="(income, index) in (cash.length + 1)"
@@ -42,6 +46,13 @@ export default {
     },
     removeMoney (index) {
       this.cash.splice(index, 1)
+    },
+    async createMoney () {
+      await this.$axios
+        .post('/cash', this.cash)
+        .then((data) => {
+          console.log(data)
+        })
     }
   }
 }
