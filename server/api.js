@@ -61,8 +61,8 @@ router.post('/cash', passport.authenticate('jwt', {session: false }), async (req
     User.findByPk(req.user.id)
         .then( user => {
           req.body.forEach( money => {
-            const { symbol, amount, expense, date } = money
-            user.createMoney({ symbol, amount, expense, date })
+            const { name, symbol, amount, expense, date } = money
+            user.createMoney({ name, symbol, amount, expense, date })
           })
         })
   res.json({body: req.body})

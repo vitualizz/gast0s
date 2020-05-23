@@ -1,18 +1,23 @@
 <template lang='pug'>
   div
     btn.is-block.is-pulled-right(
+      v-if='save'
       color='green'
       @click.native='createMoney'
     ) Save
     Money(
       ref='money'
-      v-for="(income, index) in (cash.length + 1)"
+      v-for="(income, index) in cash"
+      :cash='income'
       :key='index'
-      @add='addMoney'
       @remove='removeMoney(index)'
-      :pushed='cash.length !== index'
       :setting='setting'
       :expense='expense'
+      pushed
+    )
+    Money(
+      @add='addMoney'
+      :setting='setting'
     )
 </template>
 
@@ -28,11 +33,18 @@ export default {
       type: Object,
       default: null
     },
-    expense: Boolean
+    expense: Boolean,
+    save: Boolean,
+    cashes: Array
   },
   data () {
     return {
       cash: []
+    }
+  },
+  watch: {
+    cashes () {
+      this.cash = this.cash.concat(this.cashes)
     }
   },
   methods: {
@@ -41,7 +53,7 @@ export default {
       this.$refs.money[0].clear()
     },
     addMoney (data) {
-      this.cash.push(data)
+      this.cash.push(_.clone(data))
       this.$emit('dataMoney', this.cash)
     },
     removeMoney (index) {

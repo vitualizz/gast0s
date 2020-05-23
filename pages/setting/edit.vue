@@ -7,16 +7,19 @@
       Settings(
         @setData='getSetting'
       )
-    el-tab-pane(label='Saaad')
+    el-tab-pane(label='Incomes')
       Cash(
         ref='income'
         :setting='setting'
+        :cashes='incomeCash'
+        save
       )
-    el-tab-pane(label='Feed') Sad
+    el-tab-pane(label='Expenses')
       Cash(
         ref='expense'
         :setting='setting'
         expense
+        save
       )
 </template>
 
@@ -31,7 +34,7 @@ export default {
   },
   data () {
     return {
-      cash: [],
+      incomeCash: [],
       setting: {}
     }
   },
@@ -42,7 +45,7 @@ export default {
     async getCash () {
       await this.$axios.get('/cash')
         .then((res) => {
-          this.cash = res.data.cash
+          this.incomeCash = res.data.cash
         })
     },
     getSetting (setting) {

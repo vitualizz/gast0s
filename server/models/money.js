@@ -15,6 +15,10 @@ module.exports = (db, DataTypes) => {
           key: 'id'
         }
       },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       symbol: {
         type: DataTypes.STRING,
         allowNull: false

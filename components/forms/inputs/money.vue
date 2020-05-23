@@ -45,15 +45,16 @@
 <script>
 export default {
   props: {
-    pushed: {
-      type: Boolean,
-      default: false
-    },
+    pushed: Boolean,
     setting: {
       type: Object,
       default: null
     },
-    expense: Boolean
+    expense: Boolean,
+    cash: {
+      type: Object,
+      default: null
+    }
   },
   data () {
     return {
@@ -70,6 +71,14 @@ export default {
   computed: {
     incomeOrExpense () {
       return ((this.expense ? '-' : '+') + ' ' + this.setting.symbol)
+    }
+  },
+  mounted () {
+    if (this.cash) {
+      this.money = this.cash
+      if (this.cash.date) {
+        this.always = false
+      }
     }
   },
   methods: {
