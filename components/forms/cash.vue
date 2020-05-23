@@ -16,8 +16,10 @@
       pushed
     )
     Money(
+      ref='add'
       @add='addMoney'
       :setting='setting'
+      :expense='expense'
     )
 </template>
 
@@ -54,6 +56,7 @@ export default {
     },
     addMoney (data) {
       this.cash.push(_.clone(data))
+      this.$refs.add.clear()
       this.$emit('dataMoney', this.cash)
     },
     removeMoney (index) {
@@ -61,7 +64,7 @@ export default {
     },
     async createMoney () {
       await this.$axios
-        .post('/cash', this.cash)
+        .post('/settings/cash', this.cash)
         .then((data) => {
           console.log(data)
         })

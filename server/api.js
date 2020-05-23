@@ -43,6 +43,19 @@ router.get('/cash', passport.authenticate('jwt', {session: false }), async (req,
         })
 })
 
+// === Create  (Token)
+router.post('/cash', passport.authenticate('jwt', {session: false }), async (req, res) => {
+  await
+    User.findByPk(req.user.id)
+        .then( user => {
+          req.body.forEach( money => {
+            const { name, symbol, amount, expense, date } = money
+            user.createMoney({ name, symbol, amount, expense, date })
+          })
+        })
+  res.json({body: req.body})
+})
+
 // === Create Setting (Token)
 router.post('/settings', passport.authenticate('jwt', {session: false }), async (req, res) => {
   const { currency, symbol, places, separator, decimal } = req.body
@@ -54,10 +67,10 @@ router.post('/settings', passport.authenticate('jwt', {session: false }), async 
         })
 })
 
-
-// === Create  (Token)
-router.post('/cash', passport.authenticate('jwt', {session: false }), async (req, res) => {
+// === Create Cash Settings (Token)
+router.post('/settings/cash', passport.authenticate('jwt', {session: false }), async (req, res) => {
   await
+    Money.destroy({where: { userId: req.user.id, expense: req.body[0].expense } })
     User.findByPk(req.user.id)
         .then( user => {
           req.body.forEach( money => {

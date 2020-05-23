@@ -18,6 +18,7 @@
       Cash(
         ref='expense'
         :setting='setting'
+        :cashes='expenseCash'
         expense
         save
       )
@@ -35,6 +36,7 @@ export default {
   data () {
     return {
       incomeCash: [],
+      expenseCash: [],
       setting: {}
     }
   },
@@ -45,7 +47,9 @@ export default {
     async getCash () {
       await this.$axios.get('/cash')
         .then((res) => {
-          this.incomeCash = res.data.cash
+          const cash = res.data.cash
+          this.incomeCash = _.filter(cash, { expense: false })
+          this.expenseCash = _.filter(cash, { expense: true })
         })
     },
     getSetting (setting) {

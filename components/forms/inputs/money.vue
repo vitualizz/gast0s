@@ -73,15 +73,23 @@ export default {
       return ((this.expense ? '-' : '+') + ' ' + this.setting.symbol)
     }
   },
-  mounted () {
-    if (this.cash) {
-      this.money = this.cash
-      if (this.cash.date) {
-        this.always = false
-      }
+  watch: {
+    cash () {
+      this.getCash()
     }
   },
+  mounted () {
+    this.getCash()
+  },
   methods: {
+    getCash () {
+      if (this.cash) {
+        this.money = this.cash
+        if (this.cash.date) {
+          this.always = false
+        }
+      }
+    },
     onChangeDate (data) {
       const today = this.$moment()
       if (data > today) {
