@@ -3,6 +3,7 @@
     el-tab-pane(label='General')
       btn(
         color='green'
+        @click.native='registerSetting'
       ) Save
       Settings(
         @setData='getSetting'
@@ -51,6 +52,9 @@ export default {
           this.incomeCash = _.filter(cash, { expense: false })
           this.expenseCash = _.filter(cash, { expense: true })
         })
+    },
+    async registerSetting () {
+      await this.$axios.post('/settings', this.setting)
     },
     getSetting (setting) {
       this.setting = setting

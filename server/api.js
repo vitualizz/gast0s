@@ -60,10 +60,21 @@ router.post('/cash', passport.authenticate('jwt', {session: false }), async (req
 router.post('/settings', passport.authenticate('jwt', {session: false }), async (req, res) => {
   const { currency, symbol, places, separator, decimal } = req.body
   await
+    Setting.destroy({where: { userId: req.user.id } })
     User.findByPk(req.user.id)
         .then( user => {
           user.createSetting({ currency, symbol, places, separator, decimal })
               .then( setting => res.json({ setting, msg: 'Configuracion creada' }) )
+        })
+})
+
+// === Get Setting (Token)
+router.get('/settings', passport.authenticate('jwt', {session: false }), async (req, res) => {
+  await
+    User.findByPk(req.user.id)
+        .then( user => {
+          user.getSetting()
+              .then( setting => res.json({ setting }) )
         })
 })
 

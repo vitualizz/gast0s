@@ -2,7 +2,7 @@
   .money-input.is-inline-flex
     el-input(
       v-model='money.name'
-      placeholder='Name ejm: Salary'
+      placeholder="Name Ejm: Salary"
       :disabled='pushed'
     )
     el-input(

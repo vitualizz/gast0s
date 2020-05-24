@@ -71,7 +71,7 @@ export default {
       await this.$axios.post('/settings', this.setting)
         .then((data) => {
           self.$store.commit('setSetting', data.setting)
-          this.$store.commit('disableFirstConfiguration')
+          self.$store.commit('disableFirstConfiguration')
           this.visible = false
         })
     },

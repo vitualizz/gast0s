@@ -1,5 +1,5 @@
 module.exports = (db, DataTypes) => {
-  let Money = db.define("money",
+  let Schedule = db.define("schedule",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -15,19 +15,7 @@ module.exports = (db, DataTypes) => {
           key: 'id'
         }
       },
-      scheduleId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'schedules',
-          key: 'id'
-        }
-      },
       name: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      symbol: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -35,15 +23,11 @@ module.exports = (db, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      expense: {
+      data: {
         type: DataTypes.BOOLEAN,
         allowNull: false
-      },
-      date: {
-        type: DataTypes.DATE,
-        allowNull: true
       }
     })
 
-  return { name: 'Money', schema: Money }
+  return { name: 'Schedule', schema: Schedule }
 }

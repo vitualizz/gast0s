@@ -14,3 +14,7 @@ User.hasOne(Setting, { foreignKey: 'userId'})
 
 Money.belongsTo(User)
 User.hasMany(Money, { foreignKey: 'userId'})
+Schedule.hasMany(Money, { foreignKey: 'scheduleId' })
+
+Schedule.belongsTo(User)
+User.hasMany(Schedule, { foreignKey: 'userId' })
