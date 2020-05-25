@@ -92,4 +92,23 @@ router.post('/settings/cash', passport.authenticate('jwt', {session: false }), a
   res.json({body: req.body})
 })
 
+
+router.post("/schedules", passport.authenticate('jwt', {session: false }), async (req, res) => {
+  const { name, amount, date, cash } = req.body
+  const user_id = req.user.id
+  await
+    User.findByPk(req.user.id)
+        .then( user => {
+          user.createSchedule({ name, amount, date })
+            .then( schedule => {
+              cash.forEach( money => {
+                const { amount, date, expense, name, symbol } = money
+                money = Object.assign({}, { amount, date, expense, name, symbol }, {userID: user_id})
+                schedule.createMoney(money)
+              })
+            })
+        })
+        .catch( err => res.json({ err, msg: 'Error create schedule.'}))
+})
+
 module.exports = router

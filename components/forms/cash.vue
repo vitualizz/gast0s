@@ -46,7 +46,7 @@ export default {
   },
   watch: {
     cashes () {
-      this.cash = this.cash.concat(this.cashes)
+      this.cash = this.cashes
     }
   },
   methods: {
@@ -57,7 +57,7 @@ export default {
     addMoney (data) {
       this.cash.push(_.clone(data))
       this.$refs.add.clear()
-      this.$emit('dataMoney', this.cash)
+      this.$emit('dataMoney', data)
     },
     removeMoney (index) {
       this.cash.splice(index, 1)

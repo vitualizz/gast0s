@@ -23,8 +23,8 @@ module.exports = (db, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      data: {
-        type: DataTypes.BOOLEAN,
+      date: {
+        type: DataTypes.DATE,
         allowNull: false
       }
     })

@@ -5,7 +5,7 @@
       placeholder="Name Ejm: Schedule 1"
     )
     el-input(
-      v-model='schedule.start_amount'
+      v-model='schedule.amount'
       placeholder='Start amount'
       @change='changeAmount'
     )
@@ -16,6 +16,10 @@
       placeholder='Schedule end'
       @change='onChangeDate'
     )
+    btn(
+      color='green'
+      @click.native='save'
+    ) Save Schedule
 </template>
 
 <script>
@@ -30,16 +34,27 @@ export default {
     return {
       schedule: {
         name: '',
-        start_amount: '',
+        amount: '',
         date: null
       }
     }
   },
   methods: {
+    save () {
+      const schedule = this.schedule
+      if (schedule.name.length && schedule.amount.length && schedule.date) {
+        this.$emit('saveSchedule', schedule)
+      } else {
+        this.$message({
+          message: 'Complete all fields.',
+          type: 'error'
+        })
+      }
+    },
     changeAmount () {
       const setting = this.setting
       const schedule = this.schedule
-      schedule.start_amount = currency(schedule.start_amount,
+      schedule.amount = currency(schedule.amount,
         {
           precision: setting.places,
           symbol: '',
