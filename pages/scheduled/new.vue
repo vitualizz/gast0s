@@ -59,7 +59,6 @@ export default {
       const schedule = _.merge(data, cash)
       await this.$axios.post('/schedules', schedule)
         .then((res) => {
-          console.log(res)
           this.$router.push('/')
         })
     },

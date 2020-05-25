@@ -1,25 +1,52 @@
 <template lang='pug'>
   div
-    nuxt-link(to="/scheduled/new")
-      btn.new-scheduled(
-        color='green'
-      ) New
+    .columns.is-multiline
+      .column.is-half(
+        v-for='schedule in schedules'
+      )
+        scheduleCard(
+          :key='schedule.id'
+          :schedule='schedule'
+        )
+      .column.is-half
+        nuxt-link(to="/scheduled/new")
+          btn.btn-new-schedule(
+            color='green'
+          ) New
     ConfigNewUser
 </template>
 
 <script>
 import ConfigNewUser from '~/components/views/ConfigNewUser'
-// import scheduleCard from '~/components/shared/scheduleCard'
+import scheduleCard from '~/components/shared/scheduleCard'
 
 export default {
   components: {
-    ConfigNewUser
-    // scheduleCard
+    ConfigNewUser,
+    scheduleCard
+  },
+  data () {
+    return {
+      schedules: []
+    }
+  },
+  mounted () {
+    this.getSchedules()
+  },
+  methods: {
+    async getSchedules () {
+      await this.$axios.get('/schedules')
+        .then((res) => {
+          this.schedules = res.data.schedule
+        })
+    }
   }
 }
 </script>
 
 <style scoped lang='sass'>
-.new-scheduled
-  width: 50%
+.columns
+  margin-top: 0px
+.btn-new-schedule
+  width: 100%
 </style>
